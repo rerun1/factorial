@@ -5,43 +5,48 @@
 // 	else return n * factorial(n-1);	/* n! = n * (n-1)! */
 // }
 
+var userNumber = 0;
+var numberSequence = [];
+var numberArray = [];
+var factorTotal = 1;
+var numberFactors = "";
 
+var getNumberArray = function(number) {
+
+  for (var number = 1; number < (userNumber + 1); number += 1) {
+    numberSequence.push(number);
+  }
+
+  numberArray = numberSequence.reverse();
+
+  return numberArray;
+
+}
+
+var findFactorial = function(array) {
+  for (var factor = 0; factor < numberArray.length; factor += 1) {
+    factorTotal *= numberArray[factor];
+  }
+  numberFactors = numberArray.join(" * ");
+  return numberFactors;
+}
 
 $(document).ready(function(){
   $("form#enterNumber").submit(function(event){
     event.preventDefault();
-    var userNumber = parseInt($("input#userNumber").val());
 
-    console.log(userNumber);
+    userNumber = parseInt($("input#userNumber").val());
 
-    var numberSequence = [];
+    getNumberArray(userNumber);
 
-    for (var number = 1; number < (userNumber + 1); number += 1) {
-      numberSequence.push(number);
-    }
 
-    var numberArray = numberSequence.reverse();
+    findFactorial(numberArray);
 
-    console.log(numberArray);
-
-    var factorTotal = 1;
-
-    for (var factor = 0; factor < numberArray.length; factor += 1) {
-      factorTotal *= numberArray[factor];
-    }
-
-    var numberFactors = numberArray.join(" * ");
-
-    console.log(numberFactors);
 
     $("p#breakdown").text("To find the factorial of " + userNumber + ", multiply " + userNumber + " by every positive whole number less than " + userNumber+ ". So, that's " + numberFactors + " = " + factorTotal + ".");
 
     $("p#equation").text("A simpler way of writing this is " + userNumber + "! = " + factorTotal + ".");
 
-
-    console.log(factorTotal);
-
-    console.log('factorial of 25 is 15511210043330985984000000');
 
 
   });
